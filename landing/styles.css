@@ -177,19 +177,56 @@ main {
   filter: drop-shadow(6px 6px 0 var(--shadow));
 }
 
-/* Fallback frame in case the user hasn't dropped images yet */
-.rooster:not([src]),
-.rooster[src=""],
-img.rooster {
+/* Placeholder shown when assets/*.png are missing */
+.rooster-placeholder {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1 / 1.05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  border: 2.5px dashed var(--ink);
   background:
     repeating-linear-gradient(
       45deg,
       transparent,
-      transparent 12px,
-      rgba(20, 18, 16, 0.04) 12px,
-      rgba(20, 18, 16, 0.04) 24px
+      transparent 14px,
+      rgba(20, 18, 16, 0.04) 14px,
+      rgba(20, 18, 16, 0.04) 28px
     );
-  min-height: 280px;
+  color: var(--ink);
+  filter: drop-shadow(6px 6px 0 var(--shadow));
+}
+
+.rooster-placeholder.rooster--signup {
+  max-width: 420px;
+  transform: rotate(-2deg);
+}
+
+.rooster-placeholder svg {
+  width: 50%;
+  max-width: 200px;
+  height: auto;
+  opacity: 0.7;
+}
+
+.placeholder-msg {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.placeholder-path {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.6rem;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  opacity: 0.65;
 }
 
 .constellation {

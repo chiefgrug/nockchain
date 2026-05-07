@@ -13,6 +13,41 @@
 
 const ENDPOINT = '';
 
+// Graceful fallback when rooster images are missing from /assets
+const ROOSTER_SVG = `
+  <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M30 25 Q33 18 38 22 Q42 15 47 20 Q51 13 56 19"/>
+      <circle cx="45" cy="32" r="10"/>
+      <circle cx="48" cy="30" r="1.5" fill="currentColor"/>
+      <path d="M55 32 L62 30 L55 35 Z" fill="currentColor"/>
+      <path d="M48 38 Q47 44 50 46"/>
+      <path d="M40 40 Q25 45 25 65 Q25 85 50 85 Q75 85 78 70 Q80 55 65 45 Q55 40 50 40"/>
+      <path d="M75 55 Q90 30 95 55 M75 55 Q88 40 92 60 M75 55 Q85 50 88 65"/>
+      <path d="M40 85 L38 100 M50 85 L52 100"/>
+      <path d="M38 100 L33 102 M38 100 L43 102 M52 100 L47 102 M52 100 L57 102"/>
+    </g>
+  </svg>
+`;
+
+function swapInPlaceholder(img) {
+  const wrap = document.createElement('div');
+  wrap.className = `rooster-placeholder ${img.classList.contains('rooster--hero') ? 'rooster--hero' : 'rooster--signup'}`;
+  wrap.innerHTML = `
+    ${ROOSTER_SVG}
+    <p class="placeholder-msg">artwork missing</p>
+    <code class="placeholder-path">${img.getAttribute('src')}</code>
+  `;
+  img.replaceWith(wrap);
+}
+
+document.querySelectorAll('img.rooster').forEach((img) => {
+  img.addEventListener('error', () => swapInPlaceholder(img));
+  if (img.complete && img.naturalWidth === 0) {
+    swapInPlaceholder(img);
+  }
+});
+
 const form = document.getElementById('signup-form');
 const status = document.getElementById('form-status');
 
