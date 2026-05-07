@@ -1,0 +1,514 @@
+/* ============================================
+   NockFights — Landing
+   Aesthetic: ink-on-paper, hand-drawn, gritty.
+   Palette borrowed from the rooster artwork:
+   blood red, teal, purple, on cream paper.
+   ============================================ */
+
+:root {
+  --cream: #f3ecdb;
+  --paper: #ede4cd;
+  --paper-dark: #d8cfb8;
+  --ink: #141210;
+  --ink-soft: #2a2520;
+  --blood: #b81d1d;
+  --blood-bright: #d92020;
+  --teal: #16a59a;
+  --teal-bright: #2dd4bf;
+  --purple: #7c3aed;
+  --purple-bright: #a78bfa;
+  --shadow: rgba(20, 18, 16, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 17px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(124, 58, 237, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(22, 165, 154, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at center, rgba(184, 29, 29, 0.03) 0%, transparent 70%);
+}
+
+/* Subtle grain layer over everything */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.06 0 0 0 0.5 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+}
+
+main {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 4rem;
+}
+
+/* ===== Top bar ===== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0 2rem;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 3rem;
+}
+
+.brand-mark {
+  font-family: 'Bangers', 'Permanent Marker', cursive;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.brand-x {
+  color: var(--blood);
+  display: inline-block;
+  transform: rotate(-8deg);
+  margin: 0 0.05em;
+}
+
+.topbar-tag {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  opacity: 0.7;
+}
+
+/* ===== Hero ===== */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 2rem 0 5rem;
+  position: relative;
+}
+
+.title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.title-line {
+  display: block;
+}
+
+.title-line--1 {
+  transform: rotate(-1.5deg);
+  transform-origin: left;
+}
+
+.title-line--2 {
+  transform: rotate(0.8deg) translateX(0.2em);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--blood) 0%, var(--purple) 60%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.title-line--2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.05em;
+  width: 100%;
+  height: 6px;
+  background: var(--ink);
+  transform: skewY(-1.2deg);
+  z-index: -1;
+  opacity: 0.18;
+}
+
+.tagline {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  max-width: 30ch;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rooster {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(6px 6px 0 var(--shadow));
+}
+
+/* Fallback frame in case the user hasn't dropped images yet */
+.rooster:not([src]),
+.rooster[src=""],
+img.rooster {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 12px,
+      rgba(20, 18, 16, 0.04) 12px,
+      rgba(20, 18, 16, 0.04) 24px
+    );
+  min-height: 280px;
+}
+
+.constellation {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.55;
+  z-index: -1;
+}
+
+.constellation svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== Inline highlights ===== */
+.hl {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.hl::before {
+  content: '';
+  position: absolute;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: 0.05em;
+  height: 0.5em;
+  background: var(--teal-bright);
+  opacity: 0.35;
+  z-index: -1;
+  transform: skewY(-1deg);
+}
+
+.hl-teal { color: var(--teal); font-weight: bold; }
+.hl-blood { color: var(--blood); font-weight: bold; }
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  padding: 0.85rem 1.75rem;
+  border: 2.5px solid var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+}
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--cream);
+  box-shadow: 4px 4px 0 var(--blood);
+}
+
+.btn--primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--blood);
+}
+
+.btn--primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--blood);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--teal);
+}
+
+.btn--ghost:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--teal);
+}
+
+.btn--ghost:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--teal);
+}
+
+.btn--lg {
+  font-size: 1.4rem;
+  padding: 1.1rem 2rem;
+  width: 100%;
+}
+
+/* ===== Pitch / What ===== */
+.pitch {
+  margin: 4rem 0;
+  padding: 3.5rem 0;
+  border-top: 2px dashed var(--ink);
+  border-bottom: 2px dashed var(--ink);
+  position: relative;
+}
+
+.section-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: 2.5rem;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.pitch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.pitch-card {
+  position: relative;
+  padding: 2rem 1.5rem 1.75rem;
+  background: var(--paper);
+  border: 2.5px solid var(--ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.pitch-card:hover {
+  transform: translate(-3px, -3px);
+}
+
+.pitch-card--blood { box-shadow: 6px 6px 0 var(--blood); }
+.pitch-card--blood:hover { box-shadow: 9px 9px 0 var(--blood); }
+
+.pitch-card--teal { box-shadow: 6px 6px 0 var(--teal); }
+.pitch-card--teal:hover { box-shadow: 9px 9px 0 var(--teal); }
+
+.pitch-card--purple { box-shadow: 6px 6px 0 var(--purple); }
+.pitch-card--purple:hover { box-shadow: 9px 9px 0 var(--purple); }
+
+.pitch-num {
+  font-family: 'Bangers', cursive;
+  font-size: 2.5rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  opacity: 0.18;
+  position: absolute;
+  top: 0.4rem;
+  right: 1rem;
+  line-height: 1;
+}
+
+.pitch-card h3 {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.6rem;
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.01em;
+}
+
+.pitch-card p {
+  font-size: 1rem;
+  line-height: 1.55;
+  opacity: 0.88;
+}
+
+/* ===== Signup ===== */
+.signup {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 4rem 0 2rem;
+}
+
+.signup-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.rooster--signup {
+  max-width: 420px;
+  transform: rotate(-2deg);
+}
+
+.signup-overline {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  opacity: 0.55;
+  margin-bottom: 0.5rem;
+}
+
+.signup-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 0.95;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.signup-pitch {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 48ch;
+  opacity: 0.92;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 480px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field-label {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.signup-form input {
+  font-family: 'Special Elite', monospace;
+  font-size: 1.1rem;
+  padding: 0.9rem 1rem;
+  border: 2.5px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  outline: none;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.signup-form input:focus {
+  background: #fffaf0;
+  box-shadow: 4px 4px 0 var(--blood);
+  transform: translate(-1px, -1px);
+}
+
+.signup-form input:invalid:not(:placeholder-shown):not(:focus) {
+  box-shadow: 4px 4px 0 var(--blood);
+}
+
+.form-status {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border: 2.5px solid var(--teal);
+  background: var(--paper);
+  font-size: 1.05rem;
+}
+
+.form-status.error {
+  border-color: var(--blood);
+  color: var(--blood);
+}
+
+.signup-fineprint {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* ===== Footer ===== */
+footer {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.footer-rule {
+  height: 2px;
+  background: var(--ink);
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  opacity: 0.65;
+  letter-spacing: 0.05em;
+}
+
+.dot {
+  margin: 0 0.5rem;
+  opacity: 0.4;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 880px) {
+  .hero,
+  .signup {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 0 3rem;
+  }
+
+  .hero-visual,
+  .signup-visual {
+    order: -1;
+  }
+
+  .pitch-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar-tag {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  main { padding: 1rem 1rem 3rem; }
+  .topbar { margin-bottom: 2rem; padding-bottom: 1rem; }
+  .btn { font-size: 1rem; padding: 0.75rem 1.25rem; }
+  .btn--lg { font-size: 1.2rem; }
+  .hero-cta { flex-direction: column; }
+  .hero-cta .btn { width: 100%; }
+}
